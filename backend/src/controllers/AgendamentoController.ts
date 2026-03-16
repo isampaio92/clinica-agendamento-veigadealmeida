@@ -72,3 +72,24 @@ export const criarAgendamento = async (req: AuthRequest, res: Response): Promise
         return res.status(500).json({ erro: 'Erro interno ao processar o agendamento.' });
     }
 };
+
+export const listarAgendamentos = async (req: AuthRequest, res: Response): Promise<any> => {
+    try {
+        const pacienteId = req.usuario?.id;
+        const papel = req.usuario?.papel;
+
+        if (!pacienteId) {
+            return res.status(401).json({ erro: 'Usuário não autenticado.' });
+        }
+
+        const filtro = papel === 'paciente' ? { pacienteId } : {};
+
+        const agendamentos = await Agendamento.find(filtro).sort({ dataConsulta: 1 });
+
+        return res.status(200).json(agendamentos);
+
+    } catch(erro) {
+        console.error(erro);
+        return res.status(500).json({ erro: 'Erro interno ao buscar a lista de agendamentos.' });
+    }
+};
