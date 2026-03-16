@@ -12,6 +12,12 @@ export const criarAgendamento = async (req: AuthRequest, res: Response): Promise
             return res.status(401).json({ erro: 'Usuário não autenticado' });
         }
 
+        const horarioOcupado = await Agendamento.findOne({ dataConsulta });
+
+        if (horarioOcupado) {
+            return res.status(400).json({ erro: 'Este horário já está reservado. Por favor, escolha outro.' });
+        }
+
         const cepLimpo = cep.replace(/\D/g, '');
         const respostaCep = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`);
 
