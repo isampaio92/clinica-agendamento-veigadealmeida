@@ -3,13 +3,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
+import agendamentoRoutes from './routes/agendamentoRoutes';
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/api/auth', authRoutes)
+app.use('/api/auth', authRoutes);
+app.use('/api/agendamentos', agendamentoRoutes);
 
 const uri = process.env.MONGO_URI as string;
 
