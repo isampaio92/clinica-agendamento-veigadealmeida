@@ -84,7 +84,10 @@ export const listarAgendamentos = async (req: AuthRequest, res: Response): Promi
 
         const filtro = papel === 'paciente' ? { pacienteId } : {};
 
-        const agendamentos = await Agendamento.find(filtro).sort({ dataConsulta: 1 });
+        const agendamentos = await Agendamento
+            .find(filtro)
+            .populate('pacienteId', 'nome')
+            .sort({ dataConsulta: 1 });
 
         return res.status(200).json(agendamentos);
 

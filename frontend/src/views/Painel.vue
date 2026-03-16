@@ -55,6 +55,7 @@
                 <table v-else class="tabela">
                     <thead>
                         <tr>
+                            <th>Paciente</th>
                             <th>Data e Hora</th>
                             <th>Endereço</th>
                             <th>Alerta de Clima</th>
@@ -62,6 +63,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="consulta in listaAgendamentos" :key="consulta._id">
+                            <td>{{ consulta.pacienteId?.nome || 'Paciente não encontrado' }}</td>
                             <td><strong>{{ formatarData(consulta.dataConsulta) }}</strong></td>
                             <td>{{ consulta.endereco }}</td>
                             <td>
@@ -139,6 +141,8 @@
 
             dataConsulta.value = '';
             cep.value = '';
+
+            await buscarAgendamentos();
 
         } catch(erro) {
             if (erro.response?.status === 401) {
