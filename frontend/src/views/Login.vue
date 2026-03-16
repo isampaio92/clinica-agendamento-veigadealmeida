@@ -32,6 +32,10 @@
 
                 <p v-if="mensagemErro" class="erro">{{ mensagemErro }}</p>
             </form>
+
+            <div class="rodape-link" style="margin-top: 20px; text-align: center; font-size: 14px;">
+                <p>Ainda não tem conta? <router-link to="/cadastro" style="color: #3498db; text-decoration: none; font-weight: bold;">Cadastre-se</router-link></p>
+            </div>
         </div>
     </div>
 </template>
